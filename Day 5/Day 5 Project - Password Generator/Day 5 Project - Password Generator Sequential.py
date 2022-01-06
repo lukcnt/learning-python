@@ -10,15 +10,15 @@ nr_symbols = int(input(f"How many symbols would you like?\n"))
 nr_numbers = int(input(f"How many numbers would you like?\n"))
 
 letterpw = []
-for n in range(0, nr_letters):
+for n in range(1, nr_letters + 1):
   letterpw.append(letters[random.randint(0, len(letters) - 1)])
 
 symbolpw = []
-for i in range(0, nr_symbols):
+for i in range(1, nr_symbols + 1):
   symbolpw.append(symbols[random.randint(0, len(symbols) - 1)])
 
 numberpw = []
-for j in range(0, nr_numbers):
+for j in range(1, nr_numbers + 1):
   numberpw.append(numbers[random.randint(0, len(numbers) - 1)])
 
 finalpw = ''.join(letterpw + symbolpw + numberpw)
