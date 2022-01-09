@@ -1,6 +1,7 @@
 import random
 import hangman_art
 import hangman_words
+import os
 
 #Update the word list to use the 'word_list' from hangman_words.py
 word_list = hangman_words.word_list
@@ -26,6 +27,8 @@ while not end_of_game:
     #User make a guess.
     user_choice = input("Make a guess: ") 
     guess = user_choice.lower()
+    
+    os.system("cls")
 
     #Print the letter if the user has entered a letter they've already guessed.
     if guess in display:
