@@ -12,6 +12,18 @@ def report():
             print(f"{supplies.title()}: ${data.resources[supplies]}")
 
 
+def check_resources(order):
+    """ Check if the coffee machine have enough resources to make the order of the customer"""
+    for types in data.MENU:
+        if order == types:
+            for supplies in data.MENU[types]["ingredients"]:
+                if data.resources[supplies] >= data.MENU[types]["ingredients"][supplies]:
+                    return True
+                else:
+                    print(f"Sorry there is not enough {supplies}")
+                    return False
+
+
 # Keep attending after finishing an order
 next_customer = True
 
@@ -20,7 +32,7 @@ while next_customer:
     order = input("What would you like? (espresso/latte/cappuccino): ").lower()
 
     if order == "espresso" or order == "latte" or order == "cappuccino":
-        print(order)
+        check_resources(order)
 
     # Turn the coffee machine off
     elif order == "off":
