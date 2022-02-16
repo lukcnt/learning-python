@@ -2,7 +2,7 @@ import data
 
 
 def report():
-    """ Shows how much of the ingredients and money the coffee machine have"""
+    """ Shows how much of the ingredients and money the coffee machine have."""
     for supplies in data.resources:
         if supplies == "water" or supplies == "milk":
             print(f"{supplies.title()}: {data.resources[supplies]}ml")
@@ -13,7 +13,7 @@ def report():
 
 
 def check_resources(order):
-    """ Check if the coffee machine have enough resources to make the order of the customer"""
+    """ Check if the coffee machine have enough resources to make the order of the customer."""
     for types in data.MENU:
         if order == types:
             for supplies in data.MENU[types]["ingredients"]:
@@ -24,17 +24,29 @@ def check_resources(order):
                     return False
 
 
-# Keep attending after finishing an order
+def process_coins():
+    """ Queries and calculates the monetary value of the coins inserted."""
+    print("Please insert coins. ")
+    quarters = int(input("How many quarters?: ")) * 0.25
+    dimes = int(input("How many dimes?: ")) * 0.10
+    nickles = int(input("How many nickles?: ")) * 0.05
+    pennies = int(input("How manu pennies?: ")) * 0.01
+    client_payment = quarters + dimes + nickles + pennies
+    return round(client_payment, 2)
+
+
+# Keep attending after finishing an order.
 next_customer = True
 
 while next_customer:
-    # Gives the options for the customer order
+    # Gives the options for the customer order.
     order = input("What would you like? (espresso/latte/cappuccino): ").lower()
 
     if order == "espresso" or order == "latte" or order == "cappuccino":
-        check_resources(order)
+        if check_resources(order):
+            print(process_coins())
 
-    # Turn the coffee machine off
+    # Turn the coffee machine off.
     elif order == "off":
         print("The coffee machine will be turned off.")
         next_customer = False
@@ -44,4 +56,4 @@ while next_customer:
         report()
 
     else:
-        print("This isn't a option, please select a option from the menu.")
+        print("This isn't a option, please select an option from the menu.")
