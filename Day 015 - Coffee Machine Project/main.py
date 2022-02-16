@@ -20,7 +20,7 @@ def check_resources(order):
                 if data.resources[supplies] >= data.MENU[types]["ingredients"][supplies]:
                     return True
                 else:
-                    print(f"Sorry there is not enough {supplies}")
+                    print(f"Sorry there is not enough {supplies}.")
                     return False
 
 
@@ -51,6 +51,15 @@ def transaction_successful(payment):
         return False
 
 
+def make_coffee(order):
+    """ Deduct the ingredients needed to make the customer order from the coffee machine resources."""
+    for types in data.MENU:
+        if order == types:
+            for supplies in data.MENU[types]["ingredients"]:
+                data.resources[supplies] -= data.MENU[types]["ingredients"][supplies]
+            print(f"Here is your {order} ☕ Enjoy!")
+
+
 # Keep attending after finishing an order.
 next_customer = True
 
@@ -62,6 +71,7 @@ while next_customer:
         if check_resources(order):
             payment = process_coins()
             if transaction_successful(payment):
+                make_coffee(order)
 
     # Turn the coffee machine off.
     elif order == "off":
@@ -74,4 +84,4 @@ while next_customer:
 
     else:
         print("This isn't a option, please select an option from the menu.")
-
+#
