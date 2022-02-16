@@ -35,6 +35,22 @@ def process_coins():
     return round(client_payment, 2)
 
 
+def transaction_successful(payment):
+    """ Checks if the user has inserted enough money to purchase the drink they selected."""
+    if payment > data.MENU[order]["cost"]:
+        change = round(payment - data.MENU[order]["cost"], 2)
+        data.resources["money"] += data.MENU[order]["cost"]
+        print(f"Here is ${change} dollars in change.")
+        return True
+    elif payment == data.MENU[order]["cost"]:
+        data.resources["money"] += data.MENU[order]["cost"]
+        print("No change")
+        return True
+    else:
+        print("Sorry that's not enough money. Money refunded.")
+        return False
+
+
 # Keep attending after finishing an order.
 next_customer = True
 
@@ -44,7 +60,8 @@ while next_customer:
 
     if order == "espresso" or order == "latte" or order == "cappuccino":
         if check_resources(order):
-            print(process_coins())
+            payment = process_coins()
+            if transaction_successful(payment):
 
     # Turn the coffee machine off.
     elif order == "off":
@@ -57,3 +74,4 @@ while next_customer:
 
     else:
         print("This isn't a option, please select an option from the menu.")
+
